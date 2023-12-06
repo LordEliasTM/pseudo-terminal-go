@@ -457,7 +457,7 @@ func (t *Terminal) handleKey(key int) (line string, ok bool) {
 		if t.echo {
 			t.writeLine(t.line[t.pos-1:])
 		}
-		t.pos ++
+		t.pos++
 		t.moveCursorToPos(t.pos)
 		t.queue([]byte("\r\n"))
 		t.line = make([]byte, 0, 0)
@@ -712,16 +712,16 @@ func (sh *shell) Write(data []byte) (n int, err error) {
 	return sh.w.Write(data)
 }
 
-var oldState *State
+//var oldState *State
 
 func (t *Terminal) ReleaseFromStdInOut() { // doesn't really need a receiver, but maybe oldState can be part of term one day
-	fd := int(os.Stdin.Fd())
-	Restore(fd, oldState)
+	//fd := int(os.Stdin.Fd())
+	//Restore(fd, oldState)
 }
 
 func NewWithStdInOut() (term *Terminal, err error) {
-	fd := int(os.Stdin.Fd())
-	oldState, err = MakeRaw(fd)
+	//fd := int(os.Stdin.Fd())
+	//oldState, err = MakeRaw(fd)
 	if err != nil {
 		panic(err)
 	}
