@@ -460,7 +460,7 @@ func (t *Terminal) handleKey(key int) (line string, ok bool) {
 		t.pos++
 		t.moveCursorToPos(t.pos)
 		t.queue([]byte("\r\n"))
-		t.line = make([]byte, 0, 0)
+		t.line = make([]byte, 0)
 		t.pos = 0
 		t.cursorX = 0
 		t.cursorY = 0
@@ -623,7 +623,7 @@ func (t *Terminal) readLine() (line string, err error) {
 			}
 
 			line, lineOk = t.handleKey(key)
-			if key == KeyCtrlD && lineOk == true {
+			if key == KeyCtrlD && lineOk {
 				return "", io.EOF
 			}
 			if key == KeyCtrlC {
@@ -665,7 +665,6 @@ func (t *Terminal) readLine() (line string, err error) {
 
 		t.remainder = t.inBuf[:n+len(t.remainder)]
 	}
-	panic("unreachable")
 }
 
 // SetPrompt sets the prompt to be used when reading subsequent lines.
