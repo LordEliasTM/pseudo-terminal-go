@@ -1,12 +1,7 @@
 # pseudo-terminal-go
+but stripped of garbage and made it work as lib
 
 ## Install
 ```
-go get github.com/carmark/pseudo-terminal-go/terminal
-```
-
-## Run a test
-```
-go build test.go
-./test
+go get github.com/LordEliasTM/pseudo-terminal-go/terminal
 ```
