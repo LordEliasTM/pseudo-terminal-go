@@ -41,7 +41,7 @@ func (c *MockTerminal) Write(data []byte) (n int, err error) {
 
 func TestClose(t *testing.T) {
 	c := &MockTerminal{}
-	ss := NewTerminal(c, "> ")
+	ss := NewTerminal(c, "> ", true)
 	line, err := ss.ReadLine()
 	if line != "" {
 		t.Errorf("Expected empty line but got: %s", line)
@@ -95,7 +95,7 @@ func TestKeyPresses(t *testing.T) {
 				toSend:       []byte(test.in),
 				bytesPerRead: j,
 			}
-			ss := NewTerminal(c, "> ")
+			ss := NewTerminal(c, "> ", true)
 			line, err := ss.ReadLine()
 			if line != test.line {
 				t.Errorf("Line resulting from test %d (%d bytes per read) was '%s', expected '%s'", i, j, line, test.line)

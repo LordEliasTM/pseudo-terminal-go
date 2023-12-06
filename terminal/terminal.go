@@ -109,7 +109,7 @@ type Terminal struct {
 // a local terminal, that terminal must first have been put into raw mode.
 // prompt is a string that is written at the start of each input line (i.e.
 // "> ").
-func NewTerminal(c io.ReadWriter, prompt string) *Terminal {
+func NewTerminal(c io.ReadWriter, prompt string, echo bool) *Terminal {
 	return &Terminal{
 		Escape:     &vt100EscapeCodes,
 		c:          c,
@@ -118,7 +118,7 @@ func NewTerminal(c io.ReadWriter, prompt string) *Terminal {
 		historyIdx: -1,
 		termWidth:  80,
 		termHeight: 24,
-		echo:       true,
+		echo:       echo,
 	}
 }
 
@@ -719,13 +719,13 @@ func (t *Terminal) ReleaseFromStdInOut() { // doesn't really need a receiver, bu
 	//Restore(fd, oldState)
 }
 
-func NewWithStdInOut() (term *Terminal, err error) {
+func NewWithStdInOut(echo bool) (term *Terminal, err error) {
 	//fd := int(os.Stdin.Fd())
 	//oldState, err = MakeRaw(fd)
 	if err != nil {
 		panic(err)
 	}
 	sh := &shell{r: os.Stdin, w: os.Stdout}
-	term = NewTerminal(sh, "")
+	term = NewTerminal(sh, "", echo)
 	return
 }
